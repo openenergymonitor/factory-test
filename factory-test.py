@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import tkinter as tk
 import subprocess
 import threading
@@ -7,8 +9,8 @@ window = tk.Tk()
 window.title('OpenEnergyMonitor Factory Test')
 #window.attributes("-fullscreen", True) 
 w, h = window.winfo_screenwidth(), window.winfo_screenheight()
-#window.geometry("%dx%d+0+0" % (w, h))
-window.geometry('300x200')
+window.geometry("%dx%d+0+0" % (w, h))
+#window.geometry('300x200')
 
 
 class CmdThread (threading.Thread):
