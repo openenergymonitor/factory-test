@@ -30,7 +30,7 @@ class CmdThread (threading.Thread):
                 break
 
 def emontxv4():	
-	thread = CmdThread(['./script.sh'], text)
+	thread = CmdThread(['./upload_and_test.sh'], text)
 	thread.start()
 	#messagebox.showinfo( "Test", "This is a test notification")
 
