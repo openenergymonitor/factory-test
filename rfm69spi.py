@@ -32,16 +32,12 @@ class RFM69SPI():
         GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(self.sel_pin, GPIO.OUT)
-
-        print("RF69 STARTING SYNC");
         
         while self.readReg(REG_SYNCVALUE1) != 0xAA:
             self.writeReg(REG_SYNCVALUE1, 0xAA)
             
         while self.readReg(REG_SYNCVALUE1) != 0x55:
             self.writeReg(REG_SYNCVALUE1, 0x55)
-      
-        print("RF69 SYNC COMPLETE");
   
         CONFIG = {
           # POR value is better for first rf_sleep  0x01, 0x00, # OpMode = sleep

@@ -15,11 +15,6 @@ radio_str = ""
 
 rx_msg_flag = {}
 
-print()
-print("-------------------------------------")
-print("Reading from EmonTx 4");
-print("-------------------------------------")
-
 while 1:
 
   # Read from USB
@@ -29,7 +24,7 @@ while 1:
   
     if "\r\n" in usb_str:
         usb_str = usb_str.rstrip()
-        print(usb_str)
+        # print(usb_str)
         
         inputs = {}
         
@@ -52,19 +47,23 @@ while 1:
         if 'Vrms' in inputs:
             Vrms = float(inputs['Vrms'])   
             if Vrms>220 and Vrms<260:
-                print("VOLTAGE PASS")
+                print("- VOLTAGE: PASS")
+            else:
+                print("- VOLTAGE: FAIL ("+str(Vrms)+")")
 
         for i in range(1,7):
             name = 'P'+str(i)
             if name in inputs:
                 P = float(inputs[name])   
-                if P>1950 and P<2100:
-                    print("CT CHANNEL "+str(i)+" PASS")
+                if P>1900 and P<2200:
+                    print("- CT CHANNEL "+str(i)+": PASS")
+                else:
+                    print("- CT CHANNEL "+str(i)+": FAIL ("+str(P)+")")
 
         if 'T1' in inputs:
             T1 = float(inputs['T1'])   
             if T1>0 and T1<50:
-                print("TEMPERATURE PASS")
+                print("- TEMPERATURE: PASS")
     
         usb_str = ""
   
@@ -83,9 +82,7 @@ while 1:
         
     for msg in rx_msg_flag:
         if rx_msg_flag[msg]['radio']==rx_msg_flag[msg]['usb']:
-            print("RADIO PASS")
+            print("- RADIO: PASS")
             sys.exit(0)
-
-  
 
   time.sleep(0.1)

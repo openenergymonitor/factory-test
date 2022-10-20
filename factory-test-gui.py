@@ -4,6 +4,7 @@ import tkinter as tk
 import subprocess
 import threading
 from tkinter import messagebox
+import time
 
 window = tk.Tk()
 window.title('OpenEnergyMonitor Factory Test')
@@ -27,11 +28,13 @@ class CmdThread (threading.Thread):
         self.textvar = textvar
 
    def run(self):
+        textvar.clear()
+        time.sleep(0.5)
         proc = subprocess.Popen(self.command, stdout=subprocess.PIPE)
         while not proc.poll():
-            data = proc.stdout.readline()
+            data = proc.stdout.readline().decode()
             if data:
-                print(data, file=textvar)
+                print(data, file=textvar, end='')
                 #textvar.set(textvar.get()[:-1])
             else:
                 break
@@ -51,7 +54,7 @@ B.pack()
 
 
 textvar = WritableStringVar(window)
-label = tk.Label(window, textvariable=textvar)
+label = tk.Label(window, textvariable=textvar, anchor="e")
 label.pack(ipadx=10, ipady=10)
 
 
