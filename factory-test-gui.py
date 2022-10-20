@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import tkinter as tk
+import tkinter.font as font
 import subprocess
 import threading
 from tkinter import messagebox
@@ -8,9 +9,9 @@ import time
 
 window = tk.Tk()
 window.title('OpenEnergyMonitor Factory Test')
-#window.attributes("-fullscreen", True) 
-w, h = window.winfo_screenwidth(), window.winfo_screenheight()
-window.geometry("%dx%d+0+0" % (w, h))
+window.attributes("-fullscreen", True) 
+#w, h = window.winfo_screenwidth(), window.winfo_screenheight()
+#window.geometry("%dx%d+0+0" % (w, h))
 #window.geometry('300x200')
 
 class WritableStringVar(tk.StringVar):
@@ -35,7 +36,6 @@ class CmdThread (threading.Thread):
             data = proc.stdout.readline().decode()
             if data:
                 print(data, file=textvar, end='')
-                #textvar.set(textvar.get()[:-1])
             else:
                 break
 
@@ -45,20 +45,37 @@ def emontxv4():
 	thread.start()
 	#messagebox.showinfo( "Test", "This is a test notification")
 
+def shutdown():
+	subprocess.Popen(['sudo','shutdown','-h','now'])
 
-label = tk.Label(window, text='Select hardware to start upload:')
-label.pack(ipadx=10, ipady=10)
+def restart():
+	subprocess.Popen(['sudo','shutdown','-r','now'])
+	
+def quit():
+	window.destroy()
 
-B = tk.Button(window, text ="emonTx V4", command = emontxv4)
-B.pack()
+
+
+shutdown = tk.Button(window, text ="Shutdown", command = shutdown)
+shutdown.pack(side=tk.RIGHT, anchor=tk.NE)
+
+restart = tk.Button(window, text ="Restart", command = restart)
+restart.pack(side=tk.RIGHT, anchor=tk.NE)
+
+quit = tk.Button(window, text ="Quit", command = quit)
+quit.pack(side=tk.RIGHT, anchor=tk.NE)
+
+label = tk.Label(window, text='Touch button below to start:')
+label.pack(side=tk.TOP, anchor=tk.W)
+
+myFont = font.Font(weight="bold", size=40)
+B = tk.Button(window, text ="emonTx V4", command = emontxv4, bg='#0052cc', fg='#ffffff')
+B['font'] = myFont
+B.pack(side=tk.TOP, anchor=tk.W)
 
 
 textvar = WritableStringVar(window)
-label = tk.Label(window, textvariable=textvar, anchor="e")
-label.pack(ipadx=10, ipady=10)
-
-
-
-
+label = tk.Label(window, textvariable=textvar)
+label.pack(side=tk.TOP, anchor=tk.W)
 
 window.mainloop()
