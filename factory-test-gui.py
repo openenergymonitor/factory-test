@@ -46,7 +46,7 @@ def emontxv4():
 	#messagebox.showinfo( "Test", "This is a test notification")
 
 
-label = tk.Label(window, text='Select hardware to start upload:')
+label = tk.Label(window, text='Connect USB-C, RJ11 and hold UDPI probe then tap hardware button below to start:')
 label.pack(ipadx=10, ipady=10)
 
 B = tk.Button(window, text ="emonTx V4", command = emontxv4)
