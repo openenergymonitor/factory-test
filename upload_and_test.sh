@@ -7,7 +7,7 @@ if [ -L /dev/udpi ] ; then
         
         check=$(grep -e "Verify successful" /home/pi/factory-test/udpi.log)
         if [ ! "$check" ] ; then
-            echo "- Bootloader upload: **FAIL**"
+            echo "- Bootloader upload: **FAIL** ..is USB-C connected? orientation?"
         else
             echo "- Bootloader upload: PASS (probe can be released)" 
             
