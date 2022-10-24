@@ -49,7 +49,7 @@ while 1:
             if Vrms>220 and Vrms<260:
                 print("- VOLTAGE: PASS")
             else:
-                print("- VOLTAGE: FAIL ("+str(Vrms)+")")
+                print("- VOLTAGE: **FAIL** ("+str(Vrms)+")")
 
         for i in range(1,7):
             name = 'P'+str(i)
@@ -58,7 +58,7 @@ while 1:
                 if P>1900 and P<2200:
                     print("- CT CHANNEL "+str(i)+": PASS")
                 else:
-                    print("- CT CHANNEL "+str(i)+": FAIL ("+str(P)+")")
+                    print("- CT CHANNEL "+str(i)+": **FAIL** ("+str(P)+")")
 
         if 'T1' in inputs:
             T1 = float(inputs['T1'])   

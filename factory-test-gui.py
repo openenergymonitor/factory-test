@@ -53,7 +53,9 @@ def restart():
 	
 def quit():
 	window.destroy()
-
+=======
+label = tk.Label(window, text='Connect USB-C, RJ11 and hold UDPI probe then tap hardware button below to start:')
+label.pack(ipadx=10, ipady=10)
 
 
 shutdown = tk.Button(window, text ="Shutdown", command = shutdown)
