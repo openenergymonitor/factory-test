@@ -14,6 +14,7 @@ window.attributes("-fullscreen", True)
 #window.geometry("%dx%d+0+0" % (w, h))
 #window.geometry('300x200')
 
+        
 class WritableStringVar(tk.StringVar):
     def write(self, added_text):
         new_text = self.get() + added_text
@@ -40,7 +41,7 @@ class CmdThread (threading.Thread):
                 break
 
 def emontxv4():	
-	thread = CmdThread(['./upload_and_test.sh'], textvar)
+	thread = CmdThread(['/home/pi/factory-test/./upload_and_test.sh'], textvar)
 	#thread = CmdThread(['./test.sh'], textvar)
 	thread.start()
 	#messagebox.showinfo( "Test", "This is a test notification")
@@ -53,9 +54,6 @@ def restart():
 	
 def quit():
 	window.destroy()
-=======
-label = tk.Label(window, text='Connect USB-C, RJ11 and hold UDPI probe then tap hardware button below to start:')
-label.pack(ipadx=10, ipady=10)
 
 
 shutdown = tk.Button(window, text ="Shutdown", command = shutdown)
@@ -67,17 +65,25 @@ restart.pack(side=tk.RIGHT, anchor=tk.NE)
 quit = tk.Button(window, text ="Quit", command = quit)
 quit.pack(side=tk.RIGHT, anchor=tk.NE)
 
-label = tk.Label(window, text='Touch button below to start:')
+label = tk.Label(window, text='1. Connect USB-C, RJ11, Antenna & hold probe onto UDPI pad')
+label.config(font=("Ariel", 13))
 label.pack(side=tk.TOP, anchor=tk.W)
 
-myFont = font.Font(weight="bold", size=40)
+label2 = tk.Label(window, text='2. Tap button below to start:')
+label2.config(font=("Ariel", 13))
+label2.pack(side=tk.TOP, anchor=tk.W)
+
+myFont = font.Font(weight="bold", size=25)
 B = tk.Button(window, text ="emonTx V4", command = emontxv4, bg='#0052cc', fg='#ffffff')
 B['font'] = myFont
 B.pack(side=tk.TOP, anchor=tk.W)
 
 
 textvar = WritableStringVar(window)
-label = tk.Label(window, textvariable=textvar)
-label.pack(side=tk.TOP, anchor=tk.W)
+
+
+label=tk.Label(window, textvariable=textvar, justify=tk.LEFT)
+label.config(font=("Ariel", 12))
+label.pack(anchor=tk.W)
 
 window.mainloop()

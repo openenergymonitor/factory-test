@@ -15,6 +15,8 @@ radio_str = ""
 
 rx_msg_flag = {}
 
+timeout = time.time() + 7   # 7s 
+
 while 1:
 
   # Read from USB
@@ -49,7 +51,7 @@ while 1:
             if Vrms>220 and Vrms<260:
                 print("- VOLTAGE: PASS")
             else:
-                print("- VOLTAGE: **FAIL** ("+str(Vrms)+")")
+                print("- VOLTAGE: **FAIL** ("+str(Vrms)+") ..double check RJ11 connection?")
 
         for i in range(1,7):
             name = 'P'+str(i)
@@ -84,5 +86,10 @@ while 1:
         if rx_msg_flag[msg]['radio']==rx_msg_flag[msg]['usb']:
             print("- RADIO: PASS")
             sys.exit(0)
-
+            
+  if time.time() > timeout:
+        break
   time.sleep(0.1)
+
+print("TIMEOUT: **FAIL**") 
+
