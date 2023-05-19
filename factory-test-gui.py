@@ -42,10 +42,19 @@ class CmdThread (threading.Thread):
 
 def emontxv4():	
 	thread = CmdThread(['/home/pi/factory-test/./upload_and_test.sh'], textvar)
-	#thread = CmdThread(['./test.sh'], textvar)
 	thread.start()
 	#messagebox.showinfo( "Test", "This is a test notification")
 
+def emonpi2():	
+	thread = CmdThread(['/home/pi/factory-test/./upload_and_test.sh'], textvar)
+	thread.start()
+	#messagebox.showinfo( "Test", "This is a test notification")
+	
+def emonth():	
+	thread = CmdThread(['/home/pi/factory-test/./upload_and_test.sh'], textvar)
+	thread.start()
+
+	
 def shutdown():
 	subprocess.Popen(['sudo','shutdown','-h','now'])
 
@@ -77,6 +86,16 @@ myFont = font.Font(weight="bold", size=25)
 B = tk.Button(window, text ="emonTx V4", command = emontxv4, bg='#0052cc', fg='#ffffff')
 B['font'] = myFont
 B.pack(side=tk.TOP, anchor=tk.W)
+
+myFont = font.Font(weight="bold", size=25)
+B = tk.Button(window, text ="emonPi2", command = emonpi2, bg='#52CC00', fg='#ffffff')
+B['font'] = myFont
+B.pack(side=tk.LEFT, anchor=tk.W)
+
+myFont = font.Font(weight="bold", size=25)
+B = tk.Button(window, text ="emonTH", command = emonth, bg='#CC0052', fg='#ffffff')
+B['font'] = myFont
+B.pack(side=tk.BOTTOM, anchor=tk.W)
 
 
 textvar = WritableStringVar(window)

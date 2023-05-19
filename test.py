@@ -4,18 +4,30 @@
 # All Emoncms code is released under the GNU Affero General Public License.
 
 import serial, sys, string, time, struct
-from rfm69spi import RFM69SPI
+
+import spidev
+
+import RPi.GPIO as GPIO
+GPIO.setwarnings(False)
+
+from RFM69 import Radio
 
 # Set this to the serial port of your emontx and baud rate, 9600 is standard emontx baud rate
 usb = serial.Serial('/dev/emontx', 115200)    
-rfm69 = RFM69SPI(5,210);
+
+board = {'isHighPower': False, 'interruptPin': 22, 'resetPin': None, 'selPin':26, 'spiDevice': 0, 'encryptionKey':"89txbe4p8aik5kt3"}
+radio = Radio(43, 5, 210, verbose=False, **board)
+
+print (radio.init_success)
+
+radio.__enter__()
 
 usb_str = ""
 radio_str = ""
 
 rx_msg_flag = {}
 
-timeout = time.time() + 7   # 7s 
+timeout = time.time() + 60   # 7s 
 
 while 1:
 
@@ -69,10 +81,12 @@ while 1:
     
         usb_str = ""
   
-  msg_len = rfm69.rfm69_receive()
-  if msg_len > 1:
-    if rfm69.rx_nodeid==15 and len(rfm69.rx_data)==28:
-        unpacked = struct.unpack('LhhhhhhhhhhL',bytes(rfm69.rx_data))
+  packet = radio.get_packet()
+  if packet:
+    print(packet.sender)
+    print(len(packet.data))
+    if packet.sender==15 and len(packet.data)==28:
+        unpacked = struct.unpack('LhhhhhhhhhhL',bytes(packet.data))
         # print (unpacked)
         msg = unpacked[0]
         Vrms = unpacked[1]*0.01
@@ -92,4 +106,4 @@ while 1:
   time.sleep(0.1)
 
 print("TIMEOUT: **FAIL**") 
-
+radio.__exit__()
