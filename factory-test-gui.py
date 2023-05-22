@@ -9,12 +9,12 @@ import time
 
 window = tk.Tk()
 window.title('OpenEnergyMonitor Factory Test')
-window.attributes("-fullscreen", True) 
+window.attributes("-fullscreen", True)
 #w, h = window.winfo_screenwidth(), window.winfo_screenheight()
 #window.geometry("%dx%d+0+0" % (w, h))
 #window.geometry('300x200')
 
-        
+
 class WritableStringVar(tk.StringVar):
     def write(self, added_text):
         new_text = self.get() + added_text
@@ -22,7 +22,7 @@ class WritableStringVar(tk.StringVar):
 
     def clear(self):
         self.set("")
-        
+
 class CmdThread (threading.Thread):
    def __init__(self, command, textvar):
         threading.Thread.__init__(self)
@@ -40,18 +40,18 @@ class CmdThread (threading.Thread):
             else:
                 break
 
-def emontxv4():	
-	thread = CmdThread(['/home/pi/factory-test/./upload_and_test.sh EmonTx4'], textvar)
+def emontxv4():
+	thread = CmdThread(["/home/pi/factory-test/./upload_and_test.sh EmonTx4"], textvar)
 	thread.start()
 	#messagebox.showinfo( "Test", "This is a test notification")
 
-def emonpi2():	
-	thread = CmdThread(['/home/pi/factory-test/./upload_and_test.sh EmonPi2'], textvar)
+def emonpi2():
+	thread = CmdThread(["/home/pi/factory-test/./upload_and_test.sh EmonPi2"], textvar)
 	thread.start()
 	#messagebox.showinfo( "Test", "This is a test notification")
 	
 def emonth():	
-	thread = CmdThread(['/home/pi/factory-test/./upload_and_test.sh EmonTH'], textvar)
+	thread = CmdThread(["/home/pi/factory-test/./upload_and_test.sh EmonTH"], textvar)
 	thread.start()
 
 	
