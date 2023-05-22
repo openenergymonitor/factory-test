@@ -41,17 +41,17 @@ class CmdThread (threading.Thread):
                 break
 
 def emontxv4():
-	thread = CmdThread(["/home/pi/factory-test/./upload_and_test.sh EmonTx4"], textvar)
+	thread = CmdThread(["/home/pi/factory-test/./upload_and_test_EmonTx4.sh"], textvar)
 	thread.start()
 	#messagebox.showinfo( "Test", "This is a test notification")
 
 def emonpi2():
-	thread = CmdThread(["/home/pi/factory-test/./upload_and_test.sh EmonPi2"], textvar)
+	thread = CmdThread(["/home/pi/factory-test/./upload_and_test_EmonPi2.sh"], textvar)
 	thread.start()
 	#messagebox.showinfo( "Test", "This is a test notification")
 	
 def emonth():	
-	thread = CmdThread(["/home/pi/factory-test/./upload_and_test.sh EmonTH"], textvar)
+	thread = CmdThread(["/home/pi/factory-test/./upload_and_test_EmonTH.sh"], textvar)
 	thread.start()
 
 	
