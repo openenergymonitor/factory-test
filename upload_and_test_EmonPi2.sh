@@ -1,13 +1,5 @@
 #!/usr/bin/bash
 
-# Get 1st argument
-
-hex_file="/home/pi/factory-test/EmonTxV4CM_FactoryTest.ino.hex"
-if [ "$1" == "EmonPi2" ]; then
-  hex_file="/home/pi/factory-test/EmonPi2_FactoryTest.ino.hex"
-fi
-
-
 if [ -L /dev/udpi ] ; then
     if [ -e /dev/udpi ] ; then
         echo "- Burning bootloader via UDPI..."
@@ -22,7 +14,7 @@ if [ -L /dev/udpi ] ; then
             if [ -L /dev/emontx ] ; then
                 if [ -e /dev/emontx ] ; then
                     echo "- Uploading factory test firmware..."
-                    /usr/bin/avrdude -C/home/pi/factory-test/avrdude.conf -v -pavr128db48 -carduino -D -P/dev/emontx -b115200 -Uflash:w:$hex_file:i -l /home/pi/factory-test/avrdude.log
+                    /usr/bin/avrdude -C/home/pi/factory-test/avrdude.conf -v -pavr128db48 -carduino -D -P/dev/emontx -b115200 -Uflash:w:/home/pi/factory-test/EmonPi2_FactoryTest.ino.hex:i -l /home/pi/factory-test/avrdude.log
                     check=$(grep -e "bytes of flash verified" /home/pi/factory-test/avrdude.log)
                     if [ ! "$check" ] ; then
                         echo "- Firmware upload: **FAIL**"
