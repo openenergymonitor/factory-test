@@ -18,7 +18,7 @@ usb = serial.Serial('/dev/emontx', 115200)
 board = {'isHighPower': False, 'interruptPin': 22, 'resetPin': None, 'selPin':26, 'spiDevice': 0, 'encryptionKey':"89txbe4p8aik5kt3"}
 radio = Radio(43, 5, 210, verbose=False, **board)
 
-print (radio.init_success)
+# print (radio.init_success)
 
 radio.__enter__()
 
@@ -83,8 +83,8 @@ while 1:
   
   packet = radio.get_packet()
   if packet:
-    print(packet.sender)
-    print(len(packet.data))
+    # print(packet.sender)
+    # print(len(packet.data))
     if packet.sender==15 and len(packet.data)==28:
         unpacked = struct.unpack('LhhhhhhhhhhL',bytes(packet.data))
         # print (unpacked)
