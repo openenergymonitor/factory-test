@@ -2,9 +2,9 @@
 
 # Get 1st argument
 
-hex_file = "/home/pi/factory-test/EmonTxV4CM_FactoryTest.ino.hex"
+hex_file="/home/pi/factory-test/EmonTxV4CM_FactoryTest.ino.hex"
 if [ "$1" == "EmonPi2" ]; then
-  hex_file = "/home/pi/factory-test/EmonPi2CM_FactoryTest.ino.hex"
+  hex_file="/home/pi/factory-test/EmonPi2CM_FactoryTest.ino.hex"
 fi
 
 
