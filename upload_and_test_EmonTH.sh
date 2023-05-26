@@ -2,40 +2,39 @@
 
 exit 0
 
-if [ -L /dev/udpi ] ; then
-    if [ -e /dev/udpi ] ; then
-        echo "- Burning bootloader via UDPI..."
-        python3 -u /home/pi/factory-test/tools/prog.py -t uart -u /dev/udpi -b 230400 -d avr128db48 --fuses 0:0x00 1:0x00 2:0x00 5:0b11001000 6:0b00001100 7:0x00 8:0x01 -f/home/pi/factory-test/optiboot_dx128_ser3.hex -a write -v > /home/pi/factory-test/udpi.log
-        
-        check=$(grep -e "Verify successful" /home/pi/factory-test/udpi.log)
+if [ -L /dev/serial/by-id/XXXXISPPROGXXXX ] ; then
+    if [ -e /dev/serial/by-id/XXXISPPROGXXXXX ] ; then
+        echo "- Burning bootloader via ISP..."
+        /usr/bin/avrdude -p atmega328p -c usbasp -P usb -e -U efuse:w:0x05:m -U hfuse:w:0xD6:m -U lfuse:w:0xFF:m -U flash:w:/home/pi/factory-test/bootloaders/optiboot_atmega328.hex:i -Ulock:w:0x0f:m > /home/pi/factory-test/isp.log       
+        check=$(grep -e "Verify successful TODO" /home/pi/factory-test/isp.log)
         if [ ! "$check" ] ; then
-            echo "- Bootloader upload: **FAIL** ..is USB-C connected? orientation?"
+            echo "- Bootloader upload: **FAIL** ..is ISP connected correctly?"
         else
-            echo "- Bootloader upload: PASS (probe can be released)" 
+            echo "- Bootloader upload: PASS" 
             
-            if [ -L /dev/emontx ] ; then
-                if [ -e /dev/emontx ] ; then
+            if [ -L /dev//dev/serial/by-id/XXXUARTPPROGXXXXX ] ; then
+                if [ -e /dev//dev/serial/by-id/XXXUARTPPROGXXXXX ] ; then
                     echo "- Uploading factory test firmware..."
-                    /usr/bin/avrdude -C/home/pi/factory-test/avrdude.conf -v -patmega328 -carduino -D -P/dev/emontx -b115200 -Uflash:w:/home/pi/factory-test/EmonTH_FactoryTest.ino.hex:i -l /home/pi/factory-test/avrdude.log
+                    /usr/bin/avrdude -uV -c arduino -p ATMEGA328P -P /dev//dev/serial/by-id/XXXUARTPPROGXXXXX -b115200 -Uflash:w:/home/pi/factory-test/EmonTH_FactoryTest.ino.hex:i -l /home/pi/factory-test/avrdude.log
                     check=$(grep -e "bytes of flash verified" /home/pi/factory-test/avrdude.log)
                     if [ ! "$check" ] ; then
                         echo "- Firmware upload: **FAIL**"
                     else
                         echo "- Firmware upload: PASS"
                         echo "- Running function test..."
-                        python3 /home/pi/factory-test/test.py
+                        python3 /home/pi/factory-test/test-emonth.py
                     fi
                 else
-                    echo "- USB Link: MISSING"
+                    echo "- UART Programmer: MISSING"
                 fi
             else
-                echo "- USB Link: MISSING"
+                echo "- UART Programmer: MISSING"
             fi
         fi
     else 
-        echo "- UDPI Programmer: MISSING"
+        echo "- ISP Programmer: MISSING"
     fi
 else
-    echo "- UDPI Programmer: MISSING"
+    echo "- ISP Programmer: MISSING"
 fi
 echo "End"
