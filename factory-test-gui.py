@@ -82,20 +82,21 @@ label2 = tk.Label(window, text='2. Tap button below to start:')
 label2.config(font=("Ariel", 13))
 label2.pack(side=tk.TOP, anchor=tk.W)
 
-myFont = font.Font(weight="bold", size=25)
-B = tk.Button(window, text ="emonTx V4", command = emontxv4, bg='#0052cc', fg='#ffffff')
-B['font'] = myFont
-B.pack(side=tk.TOP, anchor=tk.W)
+myFont = font.Font(weight="bold", size=20)
 
-myFont = font.Font(weight="bold", size=25)
-B = tk.Button(window, text ="emonPi2", command = emonpi2, bg='#52CC00', fg='#ffffff')
-B['font'] = myFont
-B.pack(side=tk.LEFT, anchor=tk.W)
+B1 = tk.Button(window, text ="emonTx V4", command = emontxv4, bg='#0052cc', fg='#ffffff')
+B1['font'] = myFont
+B1.pack(side=tk.LEFT, anchor=tk.NW)
 
-myFont = font.Font(weight="bold", size=25)
-B = tk.Button(window, text ="emonTH", command = emonth, bg='#CC0052', fg='#ffffff')
-B['font'] = myFont
-B.pack(side=tk.BOTTOM, anchor=tk.W)
+
+B2 = tk.Button(window, text ="emonPi2", command = emonpi2, bg='#52CC00', fg='#ffffff')
+B2['font'] = myFont
+B2.pack(side=tk.LEFT, anchor=tk.N)
+
+
+B3 = tk.Button(window, text ="emonTH", command = emonth, bg='#CC0052', fg='#ffffff')
+B3['font'] = myFont
+B3.pack(side=tk.LEFT, anchor=tk.NE)
 
 
 textvar = WritableStringVar(window)
