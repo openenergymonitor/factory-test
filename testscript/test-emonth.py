@@ -53,9 +53,9 @@ while 1:
             print ("- SERIAL: humidity: " + str(inputs.get('humidity')) + " RH")
             # Check if temp and humidity are in the range 1-100 
             if int(float(inputs.get('temp'))) in range(1,100) and int(float(inputs.get('humidity'))) in range(1,100):
-                print("- SERIAL: PASS")
+                print("SERIAL: PASS")
             else:
-                print("- SERIAL: **FAIL**")
+                print("SERIAL: **FAIL**")
         usb_str = ""
   
   packet = radio.get_packet()
@@ -72,12 +72,12 @@ while 1:
         print ("- RADIO humidity: %0.1f RH" % (humidity*0.1))
         # Check if temp and humidity are in the range 1-100 
         if int(temperature) in range(10,1000) and int(humidity) in range(10,1000):
-            print("- RADIO: PASS")
+            print("RADIO: PASS")
         else:
-            print("- RADIO: **FAIL**")
+            print("RADIO: **FAIL**")
         sys.exit(0)
     else:
-        print("- RADIO: **FAIL**")
+        print("RADIO: **FAIL**")
             
   if time.time() > timeout:
         break
