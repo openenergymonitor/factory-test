@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # 1
 # Read from serial with data coming from RFM12PI with RFM12_Demo sketch 
 # All Emoncms code is released under the GNU Affero General Public License.

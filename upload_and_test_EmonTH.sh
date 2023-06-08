@@ -18,7 +18,7 @@ if [ -e $uartprogrammer ]; then
     else
         echo "- Firmware upload: PASS"
         echo "- Running function test..."
-        python3 /home/pi/factory-test/test-emonth.py
+        python3 /home/pi/factory-test/testscript/test-emonth.py
     fi
 else
     echo "- ERROR UART Programmer: MISSING"
