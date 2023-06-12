@@ -77,7 +77,7 @@ restart.pack(side=tk.RIGHT, anchor=tk.NE)
 quit = tk.Button(window, text ="Quit", command = quit)
 quit.pack(side=tk.RIGHT, anchor=tk.NE)
 
-label1 = tk.Label(window, text='1a: Tx/Pi: Connect USB-C, RJ11, Antenna & UDPI Probe')
+label1 = tk.Label(window, text='1a: Tx/Pi: Connect USB-C, RJ45, Antenna & UDPI Probe')
 label1.config(font=("Ariel", 13))
 label1.pack(side=tk.TOP, anchor=tk.W)
 

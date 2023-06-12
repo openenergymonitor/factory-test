@@ -63,7 +63,7 @@ while 1:
             if Vrms>220 and Vrms<260:
                 print("- VOLTAGE: PASS")
             else:
-                print("- VOLTAGE: **FAIL** ("+str(Vrms)+") ..is RJ11/RJ45 connected?")
+                print("- VOLTAGE: **FAIL** ("+str(Vrms)+") ..is RJ45 connected?")
 
         for i in range(1,7):
             name = 'P'+str(i)
