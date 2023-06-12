@@ -93,26 +93,24 @@ myFont = font.Font(weight="bold", size=20)
 
 B1 = tk.Button(window, text ="emonTx V4", command = emontxv4, bg='#0052cc', fg='#ffffff')
 B1['font'] = myFont
-B1.pack(side=tk.LEFT, anchor=tk.NW)
+B1.pack(padx=5, pady=5, side=tk.LEFT, anchor=tk.NW)
 # B1.pack(anchor=tk.NW)
 
 B2 = tk.Button(window, text ="emonPi2", command = emonpi2, bg='#52CC00', fg='#ffffff')
 B2['font'] = myFont
-B2.pack(side=tk.LEFT, anchor=tk.NW)
+B2.pack(padx=5, pady=5, side=tk.LEFT, anchor=tk.NW)
 # B2.pack(anchor=tk.NW)
 
 B3 = tk.Button(window, text ="emonTH", command = emonth, bg='#CC0052', fg='#ffffff')
 B3['font'] = myFont
-B3.pack(side=tk.LEFT, anchor=tk.NW)
+B3.pack(padx=5, pady=5, side=tk.LEFT, anchor=tk.NW)
 # B3.pack(anchor=tk.NW)
 
 
 textvar = WritableStringVar(window)
 # label=tk.Label(window, textvariable=textvar, justify=tk.LEFT)
-box=tk.Label(window, textvariable=textvar)
-box.config(font=("Ariel", 12))
-box.pack(side=tk.BOTTOM, anchor=tk.W)
-# box.pack()
-
+box=tk.Label(window, textvariable=textvar, justify=tk.LEFT, bg='#300a24', fg='#ffffff', padx=5, pady=5)
+box.config(font=("mono", 12))
+box.place(x=5,y=140, width=screen_width-10, height=screen_height-150)
 
 window.mainloop()

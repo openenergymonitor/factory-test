@@ -2,8 +2,8 @@
 
 uartprogrammer=/dev/serial/by-id/usb-Silicon_Labs_CP2102_USB_to_UART_Bridge_Controller_0001-if00-port0
 
-echo "test"
-exit 0
+# echo "test"
+# exit 0
 # # Use newer version of avrdude (6.3-20190619) 
 echo "- Setting fuses via ISP..."
  /home/pi/arduino-1.8.19/hardware/tools/avr/bin/avrdude -C /home/pi/arduino-1.8.19/hardware/tools/avr/etc/avrdude.conf -uq -p atmega328p -c usbasp -P usb -e -U lock:w:0x3F:m -U efuse:w:0xFD:m -U hfuse:w:0xDE:m -Ulfuse:w:0xFF:m -l /home/pi/factory-test/avrdude.log
@@ -35,7 +35,7 @@ if [ "$check" = "$uartprogrammer" ]; then
     /home/pi/arduino-1.8.19/hardware/tools/avr/bin/avrdude -C /home/pi/arduino-1.8.19/hardware/tools/avr/etc/avrdude.conf  -uq -c arduino -p ATMEGA328P -P $uartprogrammer -b115200 -Uflash:w:/home/pi/factory-test/testfw/EmonTH_FactoryTest.ino.hex:i -l /home/pi/factory-test/avrdude.log
     check=$(grep -e "bytes of flash verified" /home/pi/factory-test/avrdude.log)
     if [ ! "$check" ] ; then
-        echo "Firmware upload: **FAIL** ...check UART progrmmer?"
+        echo "Firmware upload: **FAIL** ...check UART programmer?"
         echo " "
         tail /home/pi/factory-test/avrdude.log
         exit 1
