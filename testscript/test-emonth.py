@@ -68,20 +68,20 @@ while 1:
         temperature = unpacked[0]
         humidity = unpacked[2]
 
+        print("- RADIO: PASS")
         print ("- RADIO temperature: %0.1f C" % (temperature*0.1))
         print ("- RADIO humidity: %0.1f RH" % (humidity*0.1))
         # Check if temp and humidity are in the range 1-100 
-        if int(temperature) in range(10,1000) and int(humidity) in range(10,1000):
-            print("RADIO: PASS")
-        else:
-            print("RADIO: **FAIL**")
+        if not int(temperature) in range(10,1000): 
+            print ("- Temperature value FAIL")
+        if not int(humidity) in range(10,1000):
+            print ("- Humidity value FAIL")
+            
         sys.exit(0)
-    else:
-        print("RADIO: **FAIL**")
             
   if time.time() > timeout:
         break
   time.sleep(0.1)
 
-print("TIMEOUT: **FAIL**") 
+print("TIMEOUT RADIO: **FAIL**") 
 radio.__exit__()

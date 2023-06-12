@@ -13,7 +13,7 @@ if [ -L /dev/udpi ] ; then
             
             if [ -L /dev/emontx ] ; then
                 if [ -e /dev/emontx ] ; then
-                    echo "- Uploading factoavrdude -p atmega328p -c avrispmkII -P usb -e -U efuse:w:0x05:m -U hfuse:w:0xD6:m -U lfuse:w:0xFF:m -U flash:w:' + bootloader_path + ':i -Ulock:w:0x0f:mry test firmware..."
+                    echo "- Uploading firmware using avrdude...wait 5s"
                     /usr/bin/avrdude -C/home/pi/factory-test/avrdude.conf -v -pavr128db48 -carduino -D -P/dev/emontx -b115200 -Uflash:w:/home/pi/factory-test/testfw/EmonPi2_FactoryTest.ino.hex:i -l /home/pi/factory-test/avrdude.log
                     check=$(grep -e "bytes of flash verified" /home/pi/factory-test/avrdude.log)
                     if [ ! "$check" ] ; then
