@@ -3,7 +3,7 @@
 # Read from serial with data coming from RFM12PI with RFM12_Demo sketch 
 # All Emoncms code is released under the GNU Affero General Public License.
 
-import serial, sys, string, time, struct
+import serial, sys, string, time, struct, os
 
 import spidev
 
@@ -12,7 +12,7 @@ GPIO.setwarnings(False)
 
 from RFM69 import Radio
 
-# Set this to the serial port of your emontx and baud rate, 9600 is standard emontx baud rate
+# Set this to the serial port of emonTx or emonPi2
 usb = serial.Serial('/dev/emontx', 115200)    
 
 board = {'isHighPower': False, 'interruptPin': 22, 'resetPin': None, 'selPin':26, 'spiDevice': 0, 'encryptionKey':"89txbe4p8aik5kt3"}
@@ -27,16 +27,16 @@ radio_str = ""
 
 rx_msg_flag = {}
 
-timeout = time.time() + 60   # 7s 
+timeout = time.time() + 15   # 7s 
 
 while 1:
 
   # Read from USB
-  if (usb.in_waiting > 0):
+  if (usb.in_waiting > 0) and (usb_str == ""):
     c = usb.read(usb.in_waiting).decode()
     usb_str = usb_str + c
   
-    if "\r\n" in usb_str:
+    if ("\r\n" in usb_str):
         usb_str = usb_str.rstrip()
         # print(usb_str)
         
@@ -105,5 +105,5 @@ while 1:
         break
   time.sleep(0.1)
 
-print("TIMEOUT: **FAIL**") 
+print("RADIO TIMEOUT: **FAIL**") 
 radio.__exit__()

@@ -9,25 +9,24 @@ if [ -L /dev/udpi ] ; then
         if [ ! "$check" ] ; then
             echo "- Bootloader upload: **FAIL** ..is USB-C connected? orientation?"
         else
-            echo "- Bootloader upload: PASS (probe can be released)" 
+            echo "- Bootloader upload: (probe can be released)" 
             
             if [ -L /dev/emontx ] ; then
                 if [ -e /dev/emontx ] ; then
-                    echo "- Uploading firmware using avrdude...wait 5s"
+                    echo "- Uploading firmware vis USB...wait 5s"
                     /usr/bin/avrdude -C/home/pi/factory-test/avrdude.conf -v -pavr128db48 -carduino -D -P/dev/emontx -b115200 -Uflash:w:/home/pi/factory-test/testfw/EmonPi2_FactoryTest.ino.hex:i -l /home/pi/factory-test/avrdude.log
                     check=$(grep -e "bytes of flash verified" /home/pi/factory-test/avrdude.log)
                     if [ ! "$check" ] ; then
-                        echo "- Firmware upload: **FAIL**"
+                        echo "- USB Firmware upload: **FAIL**"
                     else
-                        echo "- Firmware upload: PASS"
-                        echo "- Running function test..."
+                        echo "- Running function test...wait 10s"
                         python3 /home/pi/factory-test/testscript/test.py
                     fi
                 else
-                    echo "- USB Link: MISSING"
+                    echo "- USB: FAIL"
                 fi
             else
-                echo "- USB Link: MISSING"
+                echo "- USB: FAIL"
             fi
         fi
     else 
